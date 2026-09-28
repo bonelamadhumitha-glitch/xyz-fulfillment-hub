@@ -1,0 +1,3045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fulfillment Hub | XYZ</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --primary:#5b5ce2;
+    --primary2:#7475f2;
+    --bg:#f5f7fc;
+    --card:#fff;
+    --text:#172033;
+    --muted:#70788a;
+    --border:#e5e8ef;
+    --green:#19a974;
+    --greenbg:#e9f9f2;
+    --red:#e84d5b;
+    --redbg:#fff0f1;
+    --orange:#f3a712;
+    --orangebg:#fff7e5;
+    --blue:#3485e4;
+    --bluebg:#edf5ff;
+    --shadow:0 10px 30px rgba(30,40,70,.07);
+}
+
+body{
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* WELCOME */
+
+.welcome{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    background:
+    radial-gradient(circle at 15% 20%,#dddfff,transparent 30%),
+    radial-gradient(circle at 85% 80%,#dff1ff,transparent 30%),
+    #f7f8fc;
+}
+
+.welcome-card{
+    width:min(900px,100%);
+    background:#fff;
+    border-radius:30px;
+    padding:55px;
+    text-align:center;
+    box-shadow:0 25px 80px rgba(30,40,70,.12);
+}
+
+.logo{
+    width:80px;
+    height:80px;
+    border-radius:22px;
+    background:linear-gradient(135deg,var(--primary),#3485e4);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto 22px;
+    font-size:30px;
+    font-weight:900;
+}
+
+.welcome h1{
+    font-size:44px;
+    margin-bottom:10px;
+}
+
+.welcome p{
+    color:var(--muted);
+    line-height:1.7;
+}
+
+.flow{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:9px;
+    margin:35px 0;
+}
+
+.flow span{
+    background:#f2f3ff;
+    padding:12px 15px;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:800;
+}
+
+.start{
+    border:0;
+    background:var(--primary);
+    color:white;
+    padding:16px 35px;
+    border-radius:13px;
+    font-size:16px;
+    font-weight:800;
+}
+
+.start:hover{
+    transform:translateY(-2px);
+}
+
+/* TOPBAR */
+
+.topbar{
+    height:72px;
+    background:white;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:19px;
+    font-weight:850;
+}
+
+.brand-icon{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--primary),#3485e4);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.top-right{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.score{
+    background:#f1f1ff;
+    color:var(--primary);
+    padding:9px 15px;
+    border-radius:10px;
+    font-weight:850;
+}
+
+.reset{
+    border:1px solid var(--border);
+    background:white;
+    padding:9px 14px;
+    border-radius:9px;
+}
+
+/* LAYOUT */
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 72px);
+}
+
+.sidebar{
+    width:220px;
+    background:#fff;
+    border-right:1px solid var(--border);
+    padding:20px 13px;
+}
+
+.nav{
+    width:100%;
+    border:0;
+    background:transparent;
+    text-align:left;
+    padding:13px 15px;
+    border-radius:11px;
+    margin-bottom:5px;
+    color:#626a7b;
+    font-weight:700;
+}
+
+.nav:hover,
+.nav.active{
+    background:#f0f0ff;
+    color:var(--primary);
+}
+
+.main{
+    flex:1;
+    padding:30px;
+    max-width:1500px;
+}
+
+/* HEAD */
+
+.head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:23px;
+}
+
+.head h2{
+    font-size:28px;
+}
+
+.head p{
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.live{
+    background:var(--greenbg);
+    color:var(--green);
+    padding:8px 13px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:850;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+
+.stat label{
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:9px;
+}
+
+.stat strong{
+    font-size:29px;
+}
+
+/* CARDS */
+
+.card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:var(--shadow);
+}
+
+.card-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:850;
+    margin-bottom:18px;
+}
+
+.grid2{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:20px;
+}
+
+.order-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.order{
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.order:hover{
+    border-color:#c6c7f7;
+}
+
+.order-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.order-icon{
+    width:43px;
+    height:43px;
+    background:#f2f3ff;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+.order-id{
+    font-weight:850;
+    font-size:14px;
+}
+
+.small{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.order-right{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+/* BADGES */
+
+.badge{
+    padding:6px 9px;
+    border-radius:7px;
+    font-size:10px;
+    font-weight:850;
+    text-transform:uppercase;
+}
+
+.priority{
+    background:var(--redbg);
+    color:var(--red);
+}
+
+.normal{
+    background:#f0f1f4;
+    color:#6d7380;
+}
+
+.success{
+    background:var(--greenbg);
+    color:var(--green);
+}
+
+.warning{
+    background:var(--orangebg);
+    color:#a66e00;
+}
+
+.processing{
+    background:var(--bluebg);
+    color:var(--blue);
+}
+
+/* BUTTONS */
+
+.btn{
+    border:0;
+    padding:10px 15px;
+    border-radius:9px;
+    font-weight:800;
+    font-size:12px;
+}
+
+.primary{
+    background:var(--primary);
+    color:white;
+}
+
+.secondary{
+    background:white;
+    border:1px solid var(--border);
+}
+
+.green-btn{
+    background:var(--green);
+    color:white;
+}
+
+.red-btn{
+    background:var(--red);
+    color:white;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+/* ALERT */
+
+.alert{
+    padding:13px;
+    border-radius:11px;
+    margin-bottom:9px;
+    font-size:13px;
+    display:flex;
+    gap:9px;
+    align-items:flex-start;
+}
+
+.alert.red{
+    background:var(--redbg);
+    color:#a32935;
+}
+
+.alert.orange{
+    background:var(--orangebg);
+    color:#936300;
+}
+
+.alert.blue{
+    background:var(--bluebg);
+    color:#2864a7;
+}
+
+.alert.green{
+    background:var(--greenbg);
+    color:#167950;
+}
+
+/* PROGRESS */
+
+.progress{
+    height:10px;
+    background:#edf0f5;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    width:0;
+    height:100%;
+    background:linear-gradient(90deg,var(--primary),#3485e4);
+    transition:.5s;
+}
+
+/* ORDER DETAIL */
+
+.detail{
+    max-width:1100px;
+    margin:auto;
+}
+
+.detail-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:25px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.info{
+    background:#f8f9fc;
+    padding:15px;
+    border-radius:12px;
+}
+
+.info label{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-bottom:5px;
+}
+
+.info strong{
+    font-size:13px;
+}
+
+/* WORKFLOW */
+
+.workflow{
+    display:flex;
+    align-items:center;
+    margin:30px 0;
+    overflow:auto;
+}
+
+.wstep{
+    display:flex;
+    align-items:center;
+    flex-shrink:0;
+}
+
+.circle{
+    width:42px;
+    height:42px;
+    border:2px solid #dfe3ea;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:850;
+    background:white;
+}
+
+.circle.current{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:white;
+}
+
+.circle.done{
+    background:var(--green);
+    border-color:var(--green);
+    color:white;
+}
+
+.line{
+    width:55px;
+    height:3px;
+    background:#e2e5eb;
+}
+
+.line.done{
+    background:var(--green);
+}
+
+/* GAME PANEL */
+
+.game-panel{
+    margin-top:20px;
+    border-top:1px solid var(--border);
+    padding-top:25px;
+}
+
+.game-panel h3{
+    margin-bottom:7px;
+}
+
+.game-panel > p{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:17px;
+}
+
+/* WAREHOUSES */
+
+.warehouse-layout{
+    display:grid;
+    grid-template-columns:1fr 100px 1fr;
+    gap:15px;
+    align-items:center;
+}
+
+.warehouse{
+    border:2px solid var(--border);
+    border-radius:17px;
+    padding:18px;
+}
+
+.warehouse h4{
+    margin-bottom:15px;
+}
+
+.shelf{
+    display:grid;
+    grid-template-columns:45px 1fr 50px;
+    gap:10px;
+    align-items:center;
+    padding:10px;
+    border-radius:10px;
+    background:#f8f9fc;
+    margin-bottom:8px;
+    font-size:12px;
+}
+
+.stock-number{
+    font-weight:850;
+}
+
+.transfer-arrow{
+    text-align:center;
+    font-size:35px;
+    color:var(--primary);
+}
+
+/* PICKING */
+
+.pick-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+}
+
+.pick-item{
+    border:2px solid var(--border);
+    border-radius:15px;
+    padding:18px 10px;
+    text-align:center;
+    background:white;
+    transition:.2s;
+}
+
+.pick-item:hover{
+    transform:translateY(-3px);
+    border-color:var(--primary);
+}
+
+.pick-item.correct{
+    background:var(--greenbg);
+    border-color:var(--green);
+}
+
+.pick-item.wrong{
+    background:var(--redbg);
+    border-color:var(--red);
+}
+
+.pick-emoji{
+    font-size:40px;
+    margin-bottom:8px;
+}
+
+.pick-name{
+    font-size:12px;
+    font-weight:850;
+}
+
+.pick-variant{
+    font-size:10px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+/* PACKING GAME */
+
+.pack-zone{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    align-items:center;
+}
+
+.item-box,
+.box-zone{
+    min-height:220px;
+    border:2px dashed #cdd2dc;
+    border-radius:17px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.draggable{
+    background:#f2f3ff;
+    border:2px solid #d6d7ff;
+    border-radius:14px;
+    padding:20px;
+    cursor:grab;
+    width:150px;
+}
+
+.draggable:active{
+    cursor:grabbing;
+}
+
+.box-zone.dragover{
+    background:var(--greenbg);
+    border-color:var(--green);
+}
+
+/* COURIERS */
+
+.couriers{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.courier{
+    border:2px solid var(--border);
+    border-radius:15px;
+    padding:20px;
+}
+
+.courier:hover{
+    border-color:var(--primary);
+}
+
+.courier h4{
+    margin-bottom:12px;
+}
+
+.courier p{
+    color:var(--muted);
+    font-size:12px;
+    margin:8px 0;
+}
+
+/* STAGING */
+
+.staging-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.package{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+}
+
+.package-icon{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+/* INVENTORY */
+
+.inventory-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    text-align:left;
+    padding:12px 7px;
+    border-bottom:1px solid #edf0f3;
+    font-size:12px;
+}
+
+th{
+    color:var(--muted);
+    font-size:10px;
+    text-transform:uppercase;
+}
+
+/* MODAL */
+
+.modal-bg{
+    position:fixed;
+    inset:0;
+    background:rgba(20,25,40,.5);
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal{
+    width:min(600px,100%);
+    background:white;
+    border-radius:20px;
+    padding:25px;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.close{
+    width:35px;
+    height:35px;
+    border:0;
+    border-radius:50%;
+    background:#f1f2f5;
+}
+
+/* TOAST */
+
+.toast-box{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:300;
+}
+
+.toast{
+    background:#202532;
+    color:white;
+    padding:14px 18px;
+    border-radius:11px;
+    margin-top:9px;
+    min-width:270px;
+    font-size:13px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+/* COMPLETE */
+
+.complete{
+    max-width:700px;
+    margin:70px auto;
+    text-align:center;
+}
+
+.complete-icon{
+    width:100px;
+    height:100px;
+    background:var(--greenbg);
+    color:var(--green);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 20px;
+    font-size:50px;
+}
+
+.final-score{
+    font-size:60px;
+    font-weight:900;
+    color:var(--primary);
+    margin:20px;
+}
+
+.final-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:25px 0;
+}
+
+.final-box{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:18px;
+}
+
+.final-box strong{
+    display:block;
+    font-size:24px;
+    margin-bottom:5px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1050px){
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid2,
+    .inventory-grid{
+        grid-template-columns:1fr;
+    }
+
+    .pick-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:700px){
+    .layout{
+        display:block;
+    }
+
+    .sidebar{
+        width:100%;
+        display:flex;
+        overflow-x:auto;
+    }
+
+    .nav{
+        min-width:120px;
+    }
+
+    .main{
+        padding:18px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .warehouse-layout,
+    .pack-zone{
+        grid-template-columns:1fr;
+    }
+
+    .transfer-arrow{
+        transform:rotate(90deg);
+    }
+
+    .pick-grid,
+    .couriers,
+    .staging-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ==========================
+WELCOME
+========================== -->
+
+<div id="welcome" class="welcome">
+
+<div class="welcome-card">
+
+<div class="logo">FH</div>
+
+<h1>Fulfillment Hub</h1>
+
+<p>
+XYZ Warehouse Operations Challenge
+</p>
+
+<p style="max-width:650px;margin:18px auto 0">
+Manage orders, solve inventory problems, pick the correct
+products, pack shipments and dispatch them before their deadlines.
+</p>
+
+<div class="flow">
+<span>📥 Orders</span>
+<b>→</b>
+<span>🏭 Inventory</span>
+<b>→</b>
+<span>🔎 Picking</span>
+<b>→</b>
+<span>📦 Packing</span>
+<b>→</b>
+<span>🚚 Shipping</span>
+</div>
+
+<button class="start" onclick="startGame()">
+START TODAY'S SHIFT →
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ==========================
+APP
+========================== -->
+
+<div id="app" class="hidden">
+
+<header class="topbar">
+
+<div class="brand">
+<div class="brand-icon">FH</div>
+Fulfillment Hub
+</div>
+
+<div class="top-right">
+<div class="score">
+⭐ <span id="score">0</span>
+</div>
+
+<button class="reset" onclick="resetGame()">
+Reset
+</button>
+</div>
+
+</header>
+
+
+<div class="layout">
+
+<aside class="sidebar">
+
+<button class="nav active" onclick="page('dashboard',this)">
+📊 Dashboard
+</button>
+
+<button class="nav" onclick="page('orders',this)">
+📦 Orders
+</button>
+
+<button class="nav" onclick="page('inventory',this)">
+🏭 Inventory
+</button>
+
+<button class="nav" onclick="page('staging',this)">
+🚚 Staging
+</button>
+
+<button class="nav" onclick="page('alerts',this)">
+⚠️ Alerts
+</button>
+
+</aside>
+
+
+<main class="main">
+
+<!-- DASHBOARD -->
+
+<section id="dashboardPage">
+
+<div class="head">
+
+<div>
+<h2>Good morning, Manager 👋</h2>
+<p>Run today's fulfillment operation.</p>
+</div>
+
+<div class="live">● SHIFT ACTIVE</div>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<label>TODAY'S ORDERS</label>
+<strong id="total">10</strong>
+</div>
+
+<div class="stat">
+<label>PRIORITY ORDERS</label>
+<strong id="priority">3</strong>
+</div>
+
+<div class="stat">
+<label>IN PROCESS</label>
+<strong id="processing">0</strong>
+</div>
+
+<div class="stat">
+<label>READY TO SHIP</label>
+<strong id="ready">0</strong>
+</div>
+
+<div class="stat">
+<label>COMPLETED</label>
+<strong id="completed">0</strong>
+</div>
+
+</div>
+
+
+<div class="grid2">
+
+<div class="card">
+
+<div class="card-title">
+<span>🚨 Priority Queue</span>
+<button class="btn secondary"
+onclick="page('orders')">
+View all
+</button>
+</div>
+
+<div id="priorityList" class="order-list"></div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+<span>⚠️ Operational Alerts</span>
+</div>
+
+<div id="dashboardAlerts"></div>
+
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:20px">
+
+<div class="card-title">
+<span>Today's Fulfillment Progress</span>
+<span id="progressText">0%</span>
+</div>
+
+<div class="progress">
+<div id="progressFill" class="progress-fill"></div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="ordersPage" class="hidden">
+
+<div class="head">
+<div>
+<h2>Order Center</h2>
+<p>Prioritize and process today's customer orders.</p>
+</div>
+</div>
+
+<div class="card">
+<div id="ordersList" class="order-list"></div>
+</div>
+
+</section>
+
+
+<!-- INVENTORY -->
+
+<section id="inventoryPage" class="hidden">
+
+<div class="head">
+<div>
+<h2>Inventory Control</h2>
+<p>Manage stock across the main and secondary warehouses.</p>
+</div>
+</div>
+
+<div class="inventory-grid">
+
+<div class="card">
+
+<div class="card-title">
+🏭 Main Warehouse
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Variant</th>
+<th>Stock</th>
+</tr>
+</thead>
+<tbody id="mainInventory"></tbody>
+</table>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+🏢 Secondary Warehouse
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Variant</th>
+<th>Stock</th>
+</tr>
+</thead>
+<tbody id="secondaryInventory"></tbody>
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- STAGING -->
+
+<section id="stagingPage" class="hidden">
+
+<div class="head">
+<div>
+<h2>Staging Area</h2>
+<p>Packed orders waiting for courier pickup.</p>
+</div>
+</div>
+
+<div id="stagingGrid" class="staging-grid"></div>
+
+</section>
+
+
+<!-- ALERTS -->
+
+<section id="alertsPage" class="hidden">
+
+<div class="head">
+<div>
+<h2>Operational Alerts</h2>
+<p>Problems that need attention.</p>
+</div>
+</div>
+
+<div class="card" id="alerts"></div>
+
+</section>
+
+
+<!-- ORDER DETAIL -->
+
+<section id="detailPage" class="hidden">
+
+<div id="detail"></div>
+
+</section>
+
+
+<!-- COMPLETION -->
+
+<section id="completePage" class="hidden">
+
+<div class="complete">
+
+<div class="complete-icon">
+✓
+</div>
+
+<h1>Today's Shift Complete!</h1>
+
+<p style="color:var(--muted);margin-top:8px">
+All orders have successfully completed the fulfillment workflow.
+</p>
+
+<div class="final-score" id="finalScore">
+0
+</div>
+
+<div style="color:var(--muted)">
+Fulfillment Score
+</div>
+
+<div class="final-grid">
+
+<div class="final-box">
+<strong id="finalOrders">0</strong>
+Orders Shipped
+</div>
+
+<div class="final-box">
+<strong id="finalPriority">0</strong>
+Priority Orders
+</div>
+
+<div class="final-box">
+<strong id="finalAccuracy">100%</strong>
+Picking Accuracy
+</div>
+
+</div>
+
+<button class="btn primary"
+style="padding:14px 25px"
+onclick="resetGame()">
+START NEW SHIFT
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+</div>
+
+
+<!-- MODAL -->
+
+<div id="modal" class="modal-bg hidden">
+
+<div class="modal">
+
+<div class="modal-head">
+<h3 id="modalTitle">Transfer Stock</h3>
+
+<button class="close"
+onclick="closeModal()">
+×
+</button>
+</div>
+
+<div id="modalContent"></div>
+
+</div>
+
+</div>
+
+
+<div id="toastBox" class="toast-box"></div>
+
+
+<script>
+
+/* ==========================================
+DATA
+========================================== */
+
+const products = {
+
+P001:{
+name:"Wireless Mouse",
+variant:"Black",
+emoji:"🖱️"
+},
+
+P002:{
+name:"Wireless Mouse",
+variant:"White",
+emoji:"🖱️"
+},
+
+P003:{
+name:"Keyboard",
+variant:"Black",
+emoji:"⌨️"
+},
+
+P004:{
+name:"Headphones",
+variant:"Black",
+emoji:"🎧"
+},
+
+P005:{
+name:"USB Cable",
+variant:"Type-C",
+emoji:"🔌"
+}
+
+};
+
+
+const originalInventory = {
+
+main:{
+P001:8,
+P002:2,
+P003:3,
+P004:2,
+P005:20
+},
+
+secondary:{
+P001:5,
+P002:7,
+P003:10,
+P004:12,
+P005:30
+}
+
+};
+
+
+let inventory = JSON.parse(
+JSON.stringify(originalInventory)
+);
+
+
+const originalOrders = [
+
+{
+id:"ORD-1041",
+customer:"Rahul",
+product:"P001",
+qty:2,
+priority:false,
+deadline:"5:00 PM",
+status:"Received",
+courier:null
+},
+
+{
+id:"ORD-1042",
+customer:"Ananya",
+product:"P004",
+qty:2,
+priority:true,
+deadline:"1:30 PM",
+status:"Received",
+courier:null
+},
+
+{
+id:"ORD-1043",
+customer:"Priya",
+product:"P003",
+qty:1,
+priority:false,
+deadline:"5:30 PM",
+status:"Received",
+courier:null
+},
+
+{
+id:"ORD-1044",
+customer:"Arjun",
+product:"P004",
+qty:5,
+priority:true,
+deadline:"2:00 PM",
+status:"Received",
+courier:null
+},
+
+{
+id:"ORD-1045",
+customer:"Sneha",
+product:"P002",
+qty:1,
+priority:false,
+deadline:"6:00 PM",
+status:"Received",
+courier:null
+},
+
+{
+id:"ORD-1046",
+customer:"Vikram",
+product:"P005",
+qty:3,
+priority:false,
+deadline:"6:00 PM",
+status:"Received",
+courier:null
+},
+
+{
+id:"ORD-1047",
+customer:"Meera",
+product:"P001",
+qty:1,
+priority:true,
+deadline:"2:30 PM",
+status:"Received",
+courier:null
+},
+
+{
+id:"ORD-1048",
+customer:"Kiran",
+product:"P003",
+qty:2,
+priority:false,
+deadline:"6:30 PM",
+status:"Received",
+courier:null
+},
+
+{
+id:"ORD-1049",
+customer:"Divya",
+product:"P005",
+qty:2,
+priority:false,
+deadline:"7:00 PM",
+status:"Received",
+courier:null
+},
+
+{
+id:"ORD-1050",
+customer:"Rohan",
+product:"P002",
+qty:2,
+priority:false,
+deadline:"7:00 PM",
+status:"Received",
+courier:null
+}
+
+];
+
+
+let orders =
+JSON.parse(JSON.stringify(originalOrders));
+
+
+const couriers = [
+
+{
+name:"SwiftShip",
+cost:80,
+delivery:"1 Day",
+pickup:"2:00 PM"
+},
+
+{
+name:"QuickX",
+cost:110,
+delivery:"Same Day",
+pickup:"4:00 PM"
+},
+
+{
+name:"BudgetGo",
+cost:55,
+delivery:"3 Days",
+pickup:"6:00 PM"
+}
+
+];
+
+
+let score=0;
+let currentOrder=null;
+let wrongPicks=0;
+let shipped=0;
+let priorityShipped=0;
+
+
+/* ==========================================
+START
+========================================== */
+
+function startGame(){
+
+document.getElementById("welcome")
+.classList.add("hidden");
+
+document.getElementById("app")
+.classList.remove("hidden");
+
+renderAll();
+
+}
+
+
+/* ==========================================
+NAVIGATION
+========================================== */
+
+function page(name,button){
+
+document.querySelectorAll("main section")
+.forEach(s=>s.classList.add("hidden"));
+
+document.getElementById(name+"Page")
+.classList.remove("hidden");
+
+document.querySelectorAll(".nav")
+.forEach(n=>n.classList.remove("active"));
+
+if(button){
+button.classList.add("active");
+}
+
+if(name==="dashboard") renderDashboard();
+if(name==="orders") renderOrders();
+if(name==="inventory") renderInventory();
+if(name==="staging") renderStaging();
+if(name==="alerts") renderAlerts();
+
+}
+
+
+function openOrders(){
+page("orders");
+}
+
+
+/* ==========================================
+DASHBOARD
+========================================== */
+
+function renderDashboard(){
+
+updateStats();
+
+const list=
+document.getElementById("priorityList");
+
+list.innerHTML="";
+
+const priorityOrders=
+orders.filter(o=>o.priority&&!o.shipped);
+
+if(priorityOrders.length===0){
+
+list.innerHTML=`
+<div class="alert green">
+✓ All priority orders completed.
+</div>
+`;
+
+}else{
+
+priorityOrders.forEach(o=>{
+list.innerHTML+=orderHTML(o);
+});
+
+}
+
+renderDashboardAlerts();
+
+}
+
+
+/* ==========================================
+ORDER HTML
+========================================== */
+
+function orderHTML(order){
+
+const p=products[order.product];
+
+let statusClass="warning";
+
+if(order.status==="Shipped")
+statusClass="success";
+
+if(
+order.status==="Picking"||
+order.status==="Packing"||
+order.status==="Packed"||
+order.status==="Staging"
+)
+statusClass="processing";
+
+return`
+
+<div class="order">
+
+<div class="order-left">
+
+<div class="order-icon">
+${p.emoji}
+</div>
+
+<div>
+
+<div class="order-id">
+${order.id}
+</div>
+
+<div class="small">
+${order.customer} •
+${p.name} ${p.variant} × ${order.qty}
+</div>
+
+</div>
+
+</div>
+
+<div class="order-right">
+
+${
+order.priority
+?`<span class="badge priority">Priority</span>`
+:`<span class="badge normal">Normal</span>`
+}
+
+<span class="badge ${statusClass}">
+${order.status}
+</span>
+
+<button class="btn primary"
+onclick="openOrder('${order.id}')">
+
+${order.shipped?"VIEW":"PROCESS"}
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* ==========================================
+ORDERS
+========================================== */
+
+function renderOrders(){
+
+const list=
+document.getElementById("ordersList");
+
+list.innerHTML="";
+
+const sorted=[...orders].sort((a,b)=>{
+
+if(a.priority!==b.priority)
+return a.priority?-1:1;
+
+return a.id.localeCompare(b.id);
+
+});
+
+sorted.forEach(o=>{
+list.innerHTML+=orderHTML(o);
+});
+
+}
+
+
+/* ==========================================
+OPEN ORDER
+========================================== */
+
+function openOrder(id){
+
+currentOrder=id;
+
+document.querySelectorAll("main section")
+.forEach(s=>s.classList.add("hidden"));
+
+document.getElementById("detailPage")
+.classList.remove("hidden");
+
+renderDetail();
+
+}
+
+
+/* ==========================================
+DETAIL
+========================================== */
+
+function renderDetail(){
+
+const order=
+orders.find(o=>o.id===currentOrder);
+
+if(!order)return;
+
+const p=
+products[order.product];
+
+document.getElementById("detail").innerHTML=`
+
+<div class="card detail">
+
+<div class="detail-head">
+
+<div>
+
+<div class="small">
+ORDER
+</div>
+
+<h2>${order.id}</h2>
+
+<div class="small">
+Customer: ${order.customer}
+</div>
+
+</div>
+
+<div>
+
+${
+order.priority
+?`<span class="badge priority">
+🚨 PRIORITY
+</span>`
+:`<span class="badge normal">
+NORMAL
+</span>`
+}
+
+</div>
+
+</div>
+
+
+<div class="info-grid">
+
+<div class="info">
+<label>PRODUCT</label>
+<strong>${p.emoji} ${p.name}</strong>
+</div>
+
+<div class="info">
+<label>VARIANT</label>
+<strong>${p.variant}</strong>
+</div>
+
+<div class="info">
+<label>QUANTITY</label>
+<strong>${order.qty}</strong>
+</div>
+
+<div class="info">
+<label>SHIP BEFORE</label>
+<strong>${order.deadline}</strong>
+</div>
+
+</div>
+
+
+${workflow(order)}
+
+
+<div class="game-panel">
+
+${action(order)}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* ==========================================
+WORKFLOW
+========================================== */
+
+function workflow(order){
+
+const stages=[
+"Received",
+"Picking",
+"Packing",
+"Staging",
+"Shipped"
+];
+
+const index=
+stages.indexOf(
+order.status==="Packed"
+?"Staging"
+:order.status
+);
+
+let html=`<div class="workflow">`;
+
+stages.forEach((stage,i)=>{
+
+let state="";
+
+if(i<index)state="done";
+
+if(i===index)state="current";
+
+html+=`
+
+<div class="wstep">
+
+<div class="circle ${state}">
+${i<index?"✓":i+1}
+</div>
+
+${
+i<4
+?`<div class="line ${i<index?"done":""}"></div>`
+:""
+}
+
+</div>
+
+`;
+
+});
+
+html+=`</div>`;
+
+return html;
+
+}
+
+
+/* ==========================================
+ACTION
+========================================== */
+
+function action(order){
+
+const p=products[order.product];
+
+
+/* RECEIVED */
+
+if(order.status==="Received"){
+
+const stock=
+inventory.main[order.product];
+
+if(stock<order.qty){
+
+const need=
+order.qty-stock;
+
+return`
+
+<h3>⚠️ Inventory Problem</h3>
+
+<p>
+The order requires
+<strong>${order.qty}</strong>
+units, but Main Warehouse has only
+<strong>${stock}</strong>.
+</p>
+
+<div class="warehouse-layout">
+
+<div class="warehouse">
+
+<h4>🏭 Main Warehouse</h4>
+
+<div class="shelf">
+
+<span>${p.emoji}</span>
+<span>${p.name}<br>${p.variant}</span>
+<strong>${stock}</strong>
+
+</div>
+
+</div>
+
+<div class="transfer-arrow">
+→
+</div>
+
+<div class="warehouse">
+
+<h4>🏢 Secondary Warehouse</h4>
+
+<div class="shelf">
+
+<span>${p.emoji}</span>
+<span>${p.name}<br>${p.variant}</span>
+<strong>
+${inventory.secondary[order.product]}
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="alert orange" style="margin-top:15px">
+⚠️ Transfer ${need} unit(s) before picking.
+</div>
+
+<button class="btn primary"
+onclick="transfer('${order.id}')">
+
+🔄 TRANSFER STOCK
+
+</button>
+
+`;
+
+}
+
+
+return`
+
+<h3>📦 Order Ready for Picking</h3>
+
+<p>
+Stock is available in Main Warehouse.
+Find and pick the exact product requested.
+</p>
+
+<div class="alert green">
+✓ ${stock} units available in Main Warehouse.
+</div>
+
+<button class="btn primary"
+onclick="startPicking('${order.id}')">
+
+🔎 START PICKING
+
+</button>
+
+`;
+
+}
+
+
+/* PICKING */
+
+if(order.status==="Picking"){
+
+return`
+
+<h3>🔎 Picking Challenge</h3>
+
+<p>
+Find the exact product and variant shown on the order.
+Be careful—shipping the wrong variant creates a customer issue.
+</p>
+
+<div class="alert blue">
+📋 Pick:
+<strong>${p.name} — ${p.variant}</strong>
+</div>
+
+<div class="pick-grid">
+
+${pickItem("P001",order)}
+${pickItem("P002",order)}
+${pickItem("P003",order)}
+${pickItem("P004",order)}
+${pickItem("P005",order)}
+
+</div>
+
+`;
+
+}
+
+
+/* PACKING */
+
+if(order.status==="Packing"){
+
+return`
+
+<h3>📦 Packing Station</h3>
+
+<p>
+Drag the correct product into the shipping box.
+</p>
+
+<div class="pack-zone">
+
+<div class="item-box">
+
+<div class="draggable"
+draggable="true"
+id="dragItem"
+ondragstart="dragStart(event)">
+
+<div style="font-size:40px">
+${p.emoji}
+</div>
+
+<strong>${p.name}</strong>
+
+<div class="small">
+${p.variant} × ${order.qty}
+</div>
+
+</div>
+
+</div>
+
+
+<div class="box-zone"
+id="dropZone"
+ondragover="allowDrop(event)"
+ondrop="dropProduct(event)">
+
+<div style="font-size:50px">
+📦
+</div>
+
+<strong>Shipping Box</strong>
+
+<div class="small">
+Drop product here
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* PACKED */
+
+if(order.status==="Packed"){
+
+return`
+
+<h3>🚚 Choose Courier</h3>
+
+<p>
+Compare cost, delivery speed and pickup time.
+For priority orders, pay attention to the deadline.
+</p>
+
+<div class="couriers">
+
+${courierCard(0,order)}
+${courierCard(1,order)}
+${courierCard(2,order)}
+
+</div>
+
+`;
+
+}
+
+
+/* STAGING */
+
+if(order.status==="Staging"){
+
+return`
+
+<h3>🟡 Staging Area</h3>
+
+<p>
+The package is packed and waiting for the courier.
+</p>
+
+<div class="alert blue">
+
+📦 Package staged for
+<strong>${order.courier.name}</strong>.
+
+<br>
+Pickup time:
+<strong>${order.courier.pickup}</strong>
+
+</div>
+
+<button class="btn green-btn"
+onclick="dispatch('${order.id}')">
+
+🚚 COURIER PICKUP & DISPATCH
+
+</button>
+
+`;
+
+}
+
+
+/* SHIPPED */
+
+return`
+
+<div class="alert green">
+
+✓ Order successfully shipped.
+
+</div>
+
+<button class="btn secondary"
+onclick="openOrders()">
+
+← BACK TO ORDERS
+
+</button>
+
+`;
+
+}
+
+
+/* ==========================================
+PICK ITEMS
+========================================== */
+
+function pickItem(id,order){
+
+const p=products[id];
+
+return`
+
+<div class="pick-item"
+onclick="pick('${id}','${order.id}',this)">
+
+<div class="pick-emoji">
+${p.emoji}
+</div>
+
+<div class="pick-name">
+${p.name}
+</div>
+
+<div class="pick-variant">
+${p.variant}
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function pick(productId,orderId,element){
+
+const order=
+orders.find(o=>o.id===orderId);
+
+if(productId!==order.product){
+
+element.classList.add("wrong");
+
+wrongPicks++;
+
+score=Math.max(0,score-40);
+
+showToast("❌ Wrong product or variant!","error");
+
+updateStats();
+
+setTimeout(()=>{
+element.classList.remove("wrong");
+},800);
+
+return;
+
+}
+
+element.classList.add("correct");
+
+order.status="Packing";
+
+score+=100;
+
+showToast(
+"✓ Correct item picked! +100",
+"success"
+);
+
+setTimeout(()=>{
+renderDetail();
+updateStats();
+},500);
+
+}
+
+
+/* ==========================================
+START PICKING
+========================================== */
+
+function startPicking(id){
+
+const order=
+orders.find(o=>o.id===id);
+
+if(
+inventory.main[order.product]<
+order.qty
+){
+
+showToast(
+"Not enough stock in Main Warehouse.",
+"error"
+);
+
+return;
+
+}
+
+order.status="Picking";
+
+score+=25;
+
+showToast(
+"Picking task started. +25",
+"success"
+);
+
+renderDetail();
+updateStats();
+
+}
+
+
+/* ==========================================
+TRANSFER
+========================================== */
+
+function transfer(id){
+
+const order=
+orders.find(o=>o.id===id);
+
+const p=
+products[order.product];
+
+const amount=
+order.qty-inventory.main[order.product];
+
+document.getElementById("modalTitle")
+.innerText="Transfer Stock";
+
+document.getElementById("modalContent")
+.innerHTML=`
+
+<div class="alert orange">
+⚠️ Main Warehouse does not have enough stock.
+</div>
+
+<div class="warehouse">
+
+<h4>${p.emoji} ${p.name}</h4>
+
+<p class="small">
+Variant: ${p.variant}
+</p>
+
+<div style="margin-top:15px">
+
+Main Warehouse:
+<strong>
+${inventory.main[order.product]}
+</strong>
+
+</div>
+
+<div style="margin-top:8px">
+
+Secondary Warehouse:
+<strong>
+${inventory.secondary[order.product]}
+</strong>
+
+</div>
+
+<div style="margin-top:8px">
+
+Required Transfer:
+<strong>
+${amount}
+</strong>
+
+</div>
+
+</div>
+
+<button class="btn primary"
+style="width:100%;margin-top:20px"
+onclick="confirmTransfer('${id}',${amount})">
+
+TRANSFER ${amount} UNITS →
+
+</button>
+
+`;
+
+document.getElementById("modal")
+.classList.remove("hidden");
+
+}
+
+
+function confirmTransfer(id,amount){
+
+const order=
+orders.find(o=>o.id===id);
+
+if(
+inventory.secondary[order.product]<
+amount
+){
+
+showToast(
+"Not enough stock in Secondary Warehouse.",
+"error"
+);
+
+return;
+
+}
+
+inventory.secondary[order.product]-=amount;
+
+inventory.main[order.product]+=amount;
+
+score+=100;
+
+closeModal();
+
+showToast(
+`✓ ${amount} unit(s) transferred. +100`,
+"success"
+);
+
+renderDetail();
+renderInventory();
+updateStats();
+
+}
+
+
+/* ==========================================
+DRAG PACKING
+========================================== */
+
+function dragStart(event){
+
+event.dataTransfer.setData(
+"text/plain",
+"product"
+);
+
+}
+
+
+function allowDrop(event){
+
+event.preventDefault();
+
+document.getElementById("dropZone")
+.classList.add("dragover");
+
+}
+
+
+function dropProduct(event){
+
+event.preventDefault();
+
+const zone=
+document.getElementById("dropZone");
+
+zone.classList.remove("dragover");
+
+const order=
+orders.find(o=>o.id===currentOrder);
+
+if(!order)return;
+
+zone.innerHTML=`
+
+<div style="font-size:50px">
+📦
+</div>
+
+<strong>
+Package Ready ✓
+</strong>
+
+<div class="small">
+Product verified and packed.
+</div>
+
+<button class="btn green-btn"
+style="margin-top:15px"
+onclick="finishPacking('${order.id}')">
+
+SEAL PACKAGE
+
+</button>
+
+`;
+
+}
+
+
+function finishPacking(id){
+
+const order=
+orders.find(o=>o.id===id);
+
+order.status="Packed";
+
+score+=100;
+
+showToast(
+"✓ Package sealed successfully. +100",
+"success"
+);
+
+renderDetail();
+updateStats();
+
+}
+
+
+/* ==========================================
+COURIER
+========================================== */
+
+function courierCard(index,order){
+
+const c=couriers[index];
+
+return`
+
+<div class="courier">
+
+<h4>
+🚚 ${c.name}
+</h4>
+
+<p>
+💰 Cost: ₹${c.cost}
+</p>
+
+<p>
+⚡ Delivery: ${c.delivery}
+</p>
+
+<p>
+🕐 Pickup: ${c.pickup}
+</p>
+
+<button class="btn primary"
+style="width:100%;margin-top:8px"
+onclick="selectCourier('${order.id}',${index})">
+
+SELECT COURIER
+
+</button>
+
+</div>
+
+`;
+
+}
+
+
+function selectCourier(id,index){
+
+const order=
+orders.find(o=>o.id===id);
+
+order.courier=
+couriers[index];
+
+order.status="Staging";
+
+score+=100;
+
+showToast(
+`✓ ${couriers[index].name} selected. +100`,
+"success"
+);
+
+renderDetail();
+updateStats();
+renderStaging();
+
+}
+
+
+/* ==========================================
+DISPATCH
+========================================== */
+
+function dispatch(id){
+
+const order=
+orders.find(o=>o.id===id);
+
+if(!order.courier){
+
+showToast(
+"Select a courier first.",
+"error"
+);
+
+return;
+
+}
+
+order.status="Shipped";
+
+order.shipped=true;
+
+shipped++;
+
+if(order.priority){
+priorityShipped++;
+score+=200;
+}else{
+score+=150;
+}
+
+showToast(
+`🚚 ${order.id} dispatched!`,
+"success"
+);
+
+renderDetail();
+renderStaging();
+updateStats();
+
+checkComplete();
+
+}
+
+
+/* ==========================================
+STAGING
+========================================== */
+
+function renderStaging(){
+
+const box=
+document.getElementById("stagingGrid");
+
+const staged=
+orders.filter(o=>o.status==="Staging");
+
+box.innerHTML="";
+
+if(staged.length===0){
+
+box.innerHTML=`
+
+<div class="card"
+style="grid-column:1/-1;text-align:center;padding:55px">
+
+<div style="font-size:55px">
+📦
+</div>
+
+<h3 style="margin-top:12px">
+Staging Area Clear
+</h3>
+
+<p class="small">
+No packages are waiting for pickup.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+staged.forEach(o=>{
+
+const p=products[o.product];
+
+box.innerHTML+=`
+
+<div class="package">
+
+<div class="package-icon">
+📦
+</div>
+
+<strong>${o.id}</strong>
+
+<div class="small">
+${p.name} — ${p.variant}
+</div>
+
+<div style="margin:12px 0">
+<span class="badge warning">
+AWAITING PICKUP
+</span>
+</div>
+
+<div class="small">
+Courier:
+<strong>${o.courier.name}</strong>
+</div>
+
+<div class="small">
+Pickup:
+<strong>${o.courier.pickup}</strong>
+</div>
+
+<button class="btn primary"
+style="margin-top:15px"
+onclick="openOrder('${o.id}')">
+
+VIEW ORDER
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/* ==========================================
+INVENTORY
+========================================== */
+
+function renderInventory(){
+
+const main=
+document.getElementById("mainInventory");
+
+const second=
+document.getElementById("secondaryInventory");
+
+main.innerHTML="";
+second.innerHTML="";
+
+Object.keys(products).forEach(id=>{
+
+const p=products[id];
+
+const m=inventory.main[id];
+const s=inventory.secondary[id];
+
+main.innerHTML+=`
+
+<tr>
+<td>${p.emoji} ${p.name}</td>
+<td>${p.variant}</td>
+<td style="font-weight:800;color:${m<=2?"#e84d5b":"#19a974"}">
+${m}
+</td>
+</tr>
+
+`;
+
+second.innerHTML+=`
+
+<tr>
+<td>${p.emoji} ${p.name}</td>
+<td>${p.variant}</td>
+<td style="font-weight:800;color:${s<=2?"#e84d5b":"#19a974"}">
+${s}
+</td>
+</tr>
+
+`;
+
+});
+
+}
+
+
+/* ==========================================
+ALERTS
+========================================== */
+
+function getAlerts(){
+
+const alerts=[];
+
+const priorityPending=
+orders.filter(o=>o.priority&&!o.shipped);
+
+if(priorityPending.length){
+
+alerts.push({
+type:"red",
+icon:"🚨",
+text:`${priorityPending.length} priority order(s) require attention.`
+});
+
+}
+
+Object.keys(products).forEach(id=>{
+
+if(inventory.main[id]<=2){
+
+alerts.push({
+type:"orange",
+icon:"⚠️",
+text:`${products[id].name} has only ${inventory.main[id]} unit(s) in Main Warehouse.`
+});
+
+}
+
+});
+
+const staged=
+orders.filter(o=>o.status==="Staging");
+
+if(staged.length){
+
+alerts.push({
+type:"blue",
+icon:"🚚",
+text:`${staged.length} package(s) are waiting for courier pickup.`
+});
+
+}
+
+if(!alerts.length){
+
+alerts.push({
+type:"green",
+icon:"✓",
+text:"No critical operational alerts."
+});
+
+}
+
+return alerts;
+
+}
+
+
+function renderDashboardAlerts(){
+
+const box=
+document.getElementById("dashboardAlerts");
+
+box.innerHTML="";
+
+getAlerts().slice(0,4).forEach(a=>{
+
+box.innerHTML+=`
+
+<div class="alert ${a.type}">
+<span>${a.icon}</span>
+<span>${a.text}</span>
+</div>
+
+`;
+
+});
+
+}
+
+
+function renderAlerts(){
+
+const box=
+document.getElementById("alerts");
+
+box.innerHTML="";
+
+getAlerts().forEach(a=>{
+
+box.innerHTML+=`
+
+<div class="alert ${a.type}">
+<span>${a.icon}</span>
+<span>${a.text}</span>
+</div>
+
+`;
+
+});
+
+}
+
+
+/* ==========================================
+STATS
+========================================== */
+
+function updateStats(){
+
+const completed=
+orders.filter(o=>o.shipped).length;
+
+const priorityPending=
+orders.filter(o=>o.priority&&!o.shipped).length;
+
+const process=
+orders.filter(o=>
+[
+"Picking",
+"Packing",
+"Packed"
+].includes(o.status)
+).length;
+
+const ready=
+orders.filter(o=>o.status==="Staging").length;
+
+document.getElementById("total")
+.innerText=orders.length;
+
+document.getElementById("priority")
+.innerText=priorityPending;
+
+document.getElementById("processing")
+.innerText=process;
+
+document.getElementById("ready")
+.innerText=ready;
+
+document.getElementById("completed")
+.innerText=completed;
+
+document.getElementById("score")
+.innerText=score;
+
+const percentage=
+Math.round(
+completed/orders.length*100
+);
+
+document.getElementById("progressFill")
+.style.width=percentage+"%";
+
+document.getElementById("progressText")
+.innerText=percentage+"%";
+
+}
+
+
+/* ==========================================
+COMPLETION
+========================================== */
+
+function checkComplete(){
+
+if(
+orders.every(o=>o.shipped)
+){
+
+document.querySelectorAll("main section")
+.forEach(s=>s.classList.add("hidden"));
+
+document.getElementById("completePage")
+.classList.remove("hidden");
+
+document.getElementById("finalScore")
+.innerText=score;
+
+document.getElementById("finalOrders")
+.innerText=shipped;
+
+document.getElementById("finalPriority")
+.innerText=priorityShipped;
+
+const accuracy=
+wrongPicks===0
+?100
+:Math.max(
+0,
+Math.round(
+100-
+wrongPicks/orders.length*100
+)
+);
+
+document.getElementById("finalAccuracy")
+.innerText=accuracy+"%";
+
+}
+
+}
+
+
+/* ==========================================
+TOAST
+========================================== */
+
+function showToast(message,type){
+
+const box=
+document.getElementById("toastBox");
+
+const toast=
+document.createElement("div");
+
+toast.className="toast";
+
+toast.innerText=message;
+
+box.appendChild(toast);
+
+setTimeout(()=>{
+toast.remove();
+},2800);
+
+}
+
+
+/* ==========================================
+MODAL
+========================================== */
+
+function closeModal(){
+
+document.getElementById("modal")
+.classList.add("hidden");
+
+}
+
+
+/* ==========================================
+RESET
+========================================== */
+
+function resetGame(){
+
+location.reload();
+
+}
+
+
+/* ==========================================
+RENDER
+========================================== */
+
+function renderAll(){
+
+renderDashboard();
+renderOrders();
+renderInventory();
+renderStaging();
+renderAlerts();
+updateStats();
+
+}
+
+</script>
+
+</body>
+</html>
